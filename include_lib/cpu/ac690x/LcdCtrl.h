@@ -70,4 +70,5 @@ void Write_Bytes_Data_2(uchar Data,uint Number)
 void Write_Data(uchar ,uint ,uchar ); //写入一帧完整地数据
 void LCD_Display_Num(uchar ,uchar );//Lcd显示函数
 void Clear_Screen(void);
+void Rand_Clear_Screen(void);
 #endif

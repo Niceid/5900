@@ -73,7 +73,7 @@ void lcd_polling(void)
 	LCD_Display_Num(LCD6,5);
 	LCD_Display_Num(LCD7,6);
 	LCD_Display_Num(LCD8,7);
-	
+	Rand_Clear_Screen();
 }
 
 void lcd_hard_init(uint8 open_close)
@@ -122,3 +122,15 @@ void Clear_Screen(void)
 		for(j = 0; j < 3; j++)
 			Write_Data(Write_Mode,Clear_Add[i][j],0);
 }
+
+void Rand_Clear_Screen(void)
+{
+	uchar rand_x[10] = {5,4,1,2,3,6,8,9,0,7};
+	uchar rand_y[3] = {2,1,3};
+	uchar i;
+	uchar j;
+	for(i = 0; i < 10; i++)
+		for(j = 0; j < 3; j++)
+			Write_Data(Write_Mode,Clear_Add[rand_x[i]][rand_y[j]],0);
+}
+
