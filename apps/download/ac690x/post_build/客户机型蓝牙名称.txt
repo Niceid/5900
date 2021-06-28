@@ -1,0 +1,19 @@
+1.默认BT：CAR BT   默认BLE：EASYWAY-BLE   DAC_MIC:25和20
+
+2.泓科源DAB点阵屏:  CAR BT  EASYWAY-BLE    DAC_MIC:25和26
+
+
+3.伯乐DAB :  CAR BT  EASYWAY-BLE    DAC_MIC:25和26
+
+4.惠诺抄机 : HV-N-CAR-BT  EASYWAY-BLE    DAC_MIC:25和26
+
+
+5.中联合高科：CAR BT   EASYWAY-BLE   DAC_MIC:25和20
+
+5.宏玉金HYJ138：SAUNA BT   EASYWAY-BLE   DAC_MIC:25和15
+
+
+6.禾源HY601  CAR BT   EASYWAY-BLE   DAC_MIC:25和18
+
+7.八极悦带语音的软件，编译的时候要注意，由于客户的语音蓝牙连接和蓝牙断开跟我们的不一样，所以
+   编译的时候，要替换tone_resource的语音文件，语音文件在‘原始的tone_resource’这个文件夹中,编译   完成后，一定要恢复成原始的语音文件，才能编译其它客户的软件

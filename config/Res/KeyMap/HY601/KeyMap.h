@@ -1,0 +1,109 @@
+#ifndef _KEY_MAP_H_
+#define _KEY_MAP_H_
+
+
+#define ADC2_KEY1_TEST_VALUE				KEY_ADC_VALUE(0)// 1
+#define ADC2_KEY2_TEST_VALUE				KEY_ADC_VALUE(4)
+#define ADC2_KEY3_TEST_VALUE				KEY_ADC_VALUE(6)//3
+#define ADC2_KEY4_TEST_VALUE				KEY_ADC_VALUE(12)
+#define ADC2_KEY5_TEST_VALUE				KEY_ADC_VALUE(15)//5
+#define ADC2_KEY6_TEST_VALUE				KEY_ADC_VALUE(22)//6
+#define ADC2_KEY7_TEST_VALUE				KEY_ADC_VALUE(27)
+#define ADC2_KEY8_TEST_VALUE				KEY_ADC_VALUE(31)//8
+#define ADC2_KEY9_TEST_VALUE				KEY_ADC_VALUE(38)//9
+#define ADC2_KEY10_TEST_VALUE				KEY_ADC_VALUE(44)
+#define ADC2_KEY11_TEST_VALUE				KEY_ADC_VALUE(51)
+#define ADC2_KEY12_TEST_VALUE				KEY_ADC_VALUE(56)
+#define ADC2_KEY13_TEST_VALUE				KEY_ADC_VALUE(61)//13
+
+/*-------------------------------------------------------------------*/
+
+#if 1
+enum{//enter here
+	KEY_VALUE_NULL,// 0
+/*---------------------------------------------*/
+	KEY_VALUE_POWER_SEL,// 1
+	KEY_VALUE_M2,// 2
+	KEY_VALUE_BAND_AMS,// 5
+	KEY_VALUE_M4,// 4
+	KEY_VALUE_MODE,// 3
+	KEY_VALUE_NEXT,// 6
+	KEY_VALUE_M6,// 7
+	KEY_VALUE_PREV,// 8
+	KEY_VALUE_TIME,// 9
+	KEY_VALUE_M3,// 10
+	KEY_VALUE_M5,// 11
+	KEY_VALUE_POWER_MODE,//12
+	KEY_VALUE_M1,// 13
+/*---------------------------------------------*/
+	KEY_VALUE_ADD,
+	KEY_VALUE_SEL,
+	KEY_VALUE_EQ_LOUD,// 2
+	KEY_VALUE_ST,// 3
+	KEY_VALUE_TIME_MUTE,// 4
+	KEY_VALUE_POWER_MUTE,// 5
+	KEY_VALUE_MUTE,
+	KEY_VALUE_POWER,
+	KEY_VALUE_SUB,
+	KEY_VALUE_NAVI_DOWN,
+	KEY_VALUE_BAND,
+	KEY_VALUE_AMS,
+	KEY_VALUE_LOC,
+	KEY_VALUE_NAVI_UP,//26
+/*---------------------------------------------*/
+	KEY_VALUE_SCAN,
+	KEY_VALUE_LOUD,
+	KEY_VALUE_EQ,
+	KEY_VALUE_END,	// 30	
+};
+
+#else
+enum{//enter here
+	KEY_VALUE_NULL,// 0
+/*---------------------------------------------*/
+	KEY_VALUE_M1,// 1
+	KEY_VALUE_M2,// 2
+	KEY_VALUE_M3,// 3
+	KEY_VALUE_M4,// 4
+	KEY_VALUE_M5,// 5
+	KEY_VALUE_M6,// 6
+	KEY_VALUE_NEXT,// 7
+	KEY_VALUE_PREV,// 8
+	KEY_VALUE_MODE,// 9
+	KEY_VALUE_POWER_MUTE,// 10
+	KEY_VALUE_BAND_AMS,// 11
+	KEY_VALUE_SEL,// 12
+	KEY_VALUE_TIME,// 13
+/*---------------------------------------------*/
+	KEY_VALUE_ADD,
+	KEY_VALUE_EQ_LOUD,// 2
+	KEY_VALUE_ST,// 3
+	KEY_VALUE_TIME_MUTE,// 4
+	KEY_VALUE_POWER_MODE,// 5
+	KEY_VALUE_MUTE,
+	KEY_VALUE_POWER,
+	KEY_VALUE_SUB,
+	KEY_VALUE_NAVI_DOWN,
+	KEY_VALUE_BAND,
+	KEY_VALUE_AMS,
+	KEY_VALUE_LOC,
+	KEY_VALUE_NAVI_UP,//26
+/*---------------------------------------------*/
+	KEY_VALUE_SCAN,
+	KEY_VALUE_LOUD,
+	KEY_VALUE_EQ,
+	KEY_VALUE_END,	// 30	
+};
+
+#endif
+#define KEY_NAVI_UP				KEY_VALUE_NAVI_UP
+#define KEY_NAVI_DOWN			KEY_VALUE_NAVI_DOWN
+
+#define KEY_POWER_SEL			KEY_VALUE_POWER_SEL
+#define KEY_POWER_MODE			KEY_VALUE_POWER_MODE
+#define KEY_POWER_MUTE		    KEY_VALUE_POWER_MUTE
+
+#define KEY_TIME_MUTE		    KEY_VALUE_TIME_MUTE
+
+#endif /* _KEY_MAP_DEMO_H_ */
+

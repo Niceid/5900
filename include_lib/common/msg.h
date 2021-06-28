@@ -1,0 +1,1184 @@
+#ifndef __MSG_H__
+#define __MSG_H__
+
+#include "sdk_cfg.h"
+
+
+
+#define NO_MSG 0xff
+
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+
+
+#define rec_start 0x01
+#define rec_pp    0xc1
+#define rec_stop  0x00
+//#define rec_null  0x00
+
+
+//	消息扩展信息
+#define MSG_EXT_OTHERS					_B16_
+
+
+//	消息类型
+enum{
+	MSG_TYPE_NULL = 0,
+	MSG_TYPE_KEY,
+	MSG_TYPE_IR,
+	MSG_TYPE_MAX,
+};
+
+//	消息模式
+enum{
+	MSG_MODE_NULL = 0,
+	MSG_MODE_DOWN,
+	MSG_MODE_DOWN_DELEY,
+	MSG_MODE_DOWN_LOOP,
+	MSG_MODE_DELEY_LOOP,//长按持续如快进快退
+	MSG_MODE_UP_LESS_THAN,//短按弹起
+	MSG_MODE_UP_MORE_THAN,//长按弹起
+	MSG_MODE_OTHERS,
+#if defined(_SL6812_TEST_LCD_)
+	MSG_MODE_DOWN_DELEY_OTHERS,
+#endif
+#if defined(_SL6812_DELAY_KEY_)
+	MSG_MODE_DOWN_DELEY_LONG,
+#endif
+	MSG_MODE_MAX,
+};
+
+#define get_msg_others(x)				((x) & MSG_EXT_OTHERS)
+#define get_msg_type(x)					(((x)>>8)&0xFF)
+#define get_msg_mode(x)					(((x)>>0)&0xFF)
+
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+
+enum
+{
+	///-------main_msg---------------
+    MSG_0 = 0,
+    MSG_1,
+    MSG_2,
+    MSG_3,
+    MSG_4,
+    MSG_5,
+    MSG_6,
+    MSG_7,
+    MSG_8,
+    MSG_9,
+	MSG_VOL_UP,
+	MSG_VOL_DOWN,
+	MSG_VOL_STEREO,
+	MSG_MUTE,
+
+	MSG_POWER,
+	MSG_LOW_POWER,
+	MSG_CHANGE_WORKMODE,
+	MSG_NEXT_WORKMODE,
+	MSG_PRE_WORKMOD,
+	
+	MSG_UPDATA=0x13,
+
+    MSG_LAST_WORKMOD,
+	MSG_VOCAL_PP,
+	MSG_SYS_REC,
+
+    MSG_APP_MAIN_MSGLIST=0x1c,
+    MSG_MAIN_MAX=0x1e,
+
+	MSG_SYS_POWER = 0x1000,
+	MSG_SYS_MODE,
+	MSG_SYS_MUTE,
+
+	MSG_VOL_ADD,
+	MSG_VOL_SUB,
+	MSG_AUD_EQ,
+	MSG_AUD_LOUD,
+	MSG_USER_SEL,
+	MSG_USER_FUNC,
+	MSG_CLOCK_DISP,
+	MSG_CLOCK_ADJ,
+	MSG_CLOCK_MUTE,
+	MSG_SYS_MODE_CLOCK,
+	MSG_CLOCK_SEL,
+
+#if defined(_ZSBY5209_VOLUME_FUNTION_)
+	MSG_VOL_ADD_CH,
+	MSG_VOL_SUB_CH,
+#endif
+
+#if defined(_WLGK3001_IR_FUNTION_)
+	MSG_SYS_BT_ANSWER,
+	MSG_SYS_RADIO_BAND,
+#endif
+
+#if defined(_WLGK3001_KEY_FUNTION_)
+    MSG_SYS_ANSWER_MODE,
+    MSG_SYS_BAND_BT,
+#endif
+
+#if defined(_ENABLE_TEMP_PWM_)
+	MSG_SYS_TEMP,
+	MSG_SYS_WARM,
+	MSG_SYS_WARM_POWER,
+#endif
+
+#if defined(_ENABLE_MODE_CHANNEL_)
+	MSG_SYS_MODE3,
+#endif
+
+#if defined(_ENABLE_MODE_VERSION_)
+	MSG_SYS_VERSION,
+#endif
+
+#if defined(_ENABLE_PASSWORD_SET_)
+	MSG_SYS_POWER_OFF,
+#endif
+
+#if defined(_ENABLE_SEL_MENU_TIME_)
+	MSG_SEL_TIME,
+#endif
+
+#if defined(_ENABLE_CLK_TIME_SET)
+   MSG_CLK_TIME,
+#endif
+
+#if defined(BAND_ACTION_ANSWER_REJECT)
+	MSG_BAND_ANSWER,
+#endif
+
+#if defined(_KEY_LIGHT_CONTROL_)
+	MSG_SYS_KEY_LIGHT,
+#endif
+
+#if defined(_XM007_CLK_SET_)
+	MSG_CLOCK_SET3,
+#endif
+
+#if defined(_ENABLE_SET_FUNTION_)
+	MSG_USER_SEL1,
+	MSG_USER_FUNC1,
+#endif
+
+#if defined(_ENABLE_APP_FREQ_)
+	MSG_RADIO_FREQ,
+#endif
+
+#if defined(_SL6812_POWER_FUNTION_)
+	MSG_POWER_FUNTION,
+#endif
+
+#if defined(_SUPPORT_VOL_ADD)
+    MSG_VOL_ADD1,
+	MSG_VOL_SUB1,
+#endif
+
+#if defined(_SUPPORT_VR2_)
+	MSG_VOL_ADD2,
+	MSG_VOL_SUB2,
+#endif
+
+#if defined(_XZC1668_RADIO_FUNTION_)
+	MSG_SYS_FM_BAND,
+	MSG_SYS_AM_BAND,
+#endif
+
+#if defined(_ENABLE_MENU_SET_)
+	MSG_SYS_NEXT,
+	MSG_SYS_PREV,
+#endif
+
+#if defined(_ENABLE_NEXT_PRVE_SET_)
+    MSG_SYS_NEXT1,
+	MSG_SYS_PREV1,
+#endif
+
+#if defined(_ENABLE_AUX_VERSION_)
+	MSG_SYS_M1,
+#endif
+
+#if defined(_ENABLE_EQ_TIME_)
+	MSG_CLOCK_EQ,
+#endif
+
+#if defined(_ENABLE_SUB_DETECT_)
+	MSG_SYS_SUB,
+#endif
+
+#if defined(_XM007_BEEP_CONTROL)
+	MSG_USER_M1,
+	MSG_USER_M2,
+	MSG_USER_M3,
+	MSG_USER_M4,
+	MSG_USER_M5,
+	MSG_USER_M6,
+	MSG_USER_M9,
+	MSG_USER_M0,
+	MSG_USER_REJECT,
+#endif
+
+#if defined(_XM003_SPECIAL_MUTE_)
+    MSG_USER_M1,
+    MSG_USER_M2,
+    MSG_USER_M3,
+    MSG_USER_M4,
+    MSG_USER_M5,
+    MSG_USER_M6,
+#endif
+
+#if defined(_EVB_DISP_TIME_SET_)
+	MSG_CLOCK_SET1,
+#endif
+
+#if defined(_SWL_ENABLE_SEL_TIME_)
+	MSG_CLOCK_SET2,
+#endif
+
+#if defined(_CONNECT_BT_PHONE_)||defined(_ENABLE_REJECT_CONNECT_)
+	MSG_SYS_CONNECT,
+#endif
+
+#if defined(_IR_SWITCH_TO_BT_)
+	MSG_SYS_PHONE,
+#endif
+
+#if defined(_SUPPORT_DISC_)
+	MSG_SYS_EJECT,
+#if defined(_ENABLE_REJECT_)
+	MSG_SYS_EJECT1,
+#endif
+#endif
+
+#if defined(_SUPPORT_IPHONE_SIR_)
+	MSG_SYS_SIR,
+#endif
+
+#if defined(_ENABLE_AUX_VER_VIEW_)
+	MSG_VER_VIEW,
+#endif
+
+#if defined(_ENABLE_AUX_RESET_)
+	MSG_SYS_RESET_VIEW,
+#endif
+
+#if defined(_ENABLE_FAD_FUNTION_)
+	MSG_FAD_SINGLE_F,
+	MSG_FAD_SINGLE_R,
+	MSG_FAD_ALL,
+#endif
+
+#if defined(DISABLE_MODE_REJECT_FUNCTION_)||defined(_SL6812_SPECIAL_MODE_)
+    MSG_SYS_MODE1,
+#endif
+
+#if defined(_XZC1668_MODE_FUNTION_)
+	MSG_SYS_MODE2,
+#endif
+
+#if defined(_KEY_SWITCH_TO_BT_)
+    MSG_SYS_BT,
+#endif
+
+#if defined(ENABLE_SPECIAL_BT_)
+    MSG_SYS_BT_MODE,
+#endif
+
+#if defined(_KEY_SWITCH_TO_RADIO_)||defined(_TL_KEY_TO_RADIO_)||defined(_EP_SWITCH_TO_RADIO_)||defined(_SPECIAL_MODE_FUNTION_)
+	MSG_SYS_RADIO,
+#endif
+
+#if defined(_SH_SWITCH_TO_RADIO_)
+	MSG_SYS_FM,
+#endif
+
+#if defined(_SPECIAL_MODE_FUNTION_)
+	MSG_SYS_AUX_OPTICAL,
+	MSG_SYS_TV_DVD,
+	MSG_SYS_MUSIC,
+#endif
+
+#if defined(_ENABLE_VOLUME_CONTROL_)
+	MSG_SYS_ZONE1,
+	MSG_SYS_ZONE2,
+	MSG_SYS_ZONE3,
+	MSG_SYS_ZONE4,
+#endif
+
+#if defined(_ENABLE_SWITCH_TO_BT_)
+	MSG_SYS_BT_CALL,
+#endif
+
+#if defined(_USB_AND_SD_FUNTION_)
+	MSG_SYS_MODE_SUB_SD,
+#endif
+
+#if defined(_SH1330_KEY_SET_)
+	MSG_SPECIAL_MUTE,
+#endif
+
+#if defined(_CHANGE_USB_SD_FUNTION_)
+	MSG_SYS_SUB_SD,
+#endif
+
+#if defined(_SUPPORT_PLAYER_NAMES_)
+    MSG_SYS_PLAYER_NAMES,
+#endif
+
+#if defined(_SPECIAL_KEY_FUNTION_)||defined(DA_SPECIAL_KEY_FUNTION_)
+	MSG_PLAY_TIME,
+#endif
+
+#if defined(_FYDVD_SPECIAL_KEY_)
+	 MSG_ENTER_CLOCK,
+#endif
+
+#if defined(_MR9982_SPECIAL_KEY_)||defined(_GDH5001_SPECIAL_IR_)
+	 MSG_PTY_CLOCK,
+#endif
+
+#if defined(_MR9926_SPECIAL_KEY_)
+	 MSG_AF_TA,
+#endif
+
+#if defined(USE_FY_ADD_3KEY)
+	MSG_USER_FUNC2,
+	MSG_CLOCK_AF,
+#endif
+
+#if defined(_ENABLE_RECORD_RADIO_)
+	MSG_RECORD_RADIO,
+#endif
+
+#if defined(_ENABLE_MIC_REC_)
+    MSG_RECORD_MIC,
+#endif
+
+#if defined(_ENABLE_RECORD_KEY_)
+	MSG_RECORD_INT,
+#endif
+
+#if defined(_SPECIAL_MENU_SET_)||defined(_XM007_MENU_SET_)
+	MSG_USER_MENU,
+#endif
+
+#if defined(_ZST2020_MENU_SET_)
+	MSG_MODE_SEL,
+#endif
+
+#if defined(_SH1330_MENU_SET_)
+	MSG_MODE_SEL_CLK,
+#endif
+
+#if defined(_MR9002_MENU_SET_)
+    MSG_SEL_CLK,
+#endif
+
+#if defined(_POWER_SET_COLOR_)||defined(_ENABLE_SET_COLOR_)
+	MSG_SYS_LIGHT,
+#endif
+
+#if defined(_SL6812_TEST_LCD_)
+	MSG_SYS_LCD,
+#endif
+
+#if defined(_SL6812_KEY_FUNTION_)
+	MSG_SYS_SPM,
+#endif
+
+#if defined(_BT_DISCONNECT_DISPLAY_)
+    MSG_SYS_DISPLAY,
+#endif
+
+#if defined(_ENABLE_PASSWORD_SET_)
+	MSG_SYS_SET_PWD,
+#endif
+
+#if defined(_ENABLE_PWD_RESET_)
+	MSG_SYS_PWD_RESET,
+#endif
+
+#if defined(_ENABLE_ID3_SET_)
+	MSG_SYS_ID3,
+#endif
+
+#if defined(SUPPORT_LED_ADJUST)
+	MSG_CLOCK_LED,
+#endif
+
+#if defined(_ADJUST_A_B_SPK_)
+	MSG_ADJ_A_SPK,
+	MSG_ADJ_B_SPK,
+#endif
+#if defined(_MR889_SPECAIL_KEY_)
+	MSG_ADJ_CONTROL_SPK,
+#endif
+#if defined(_SPECIAL_TL2000_SET_)
+	MSG_VOL_A_SUB,
+	MSG_VOL_A_ADD,
+	MSG_VOL_B_SUB,
+	MSG_VOL_B_ADD,
+#endif
+#if defined(SUPPORT_ALARM_FUNC_)
+	MSG_ALARM_MODE,
+#endif
+#if defined(ENABLE_BT_MODE_)
+	MSG_SYS_BT,
+#endif
+#if defined(_JL8258_KEY_FUNTION_)
+	MSG_SYS_FM_TIME,
+#endif
+#if defined(_ENABLE_BAND_TIME_)
+	MSG_SYS_BAND_CLOCK,
+#endif
+#if defined(_SUPPORT_POWER_ON_PASSWORD_)
+	MSG_SYS_PASSWORD_ENTER,
+#endif
+#if defined(_SUPPORT_EXT_MEMORY_)
+	MSG_CLEAR_MEMORY,
+#endif
+#if defined(_ENABLE_DISP_BT_NAME_)
+	MSG_SYS_BT_NAME,
+#endif
+#if defined(_ENABLE_PASSWORD_INPUT_)
+	MSG_SYS_PASSWORD,
+	MSG_SYS_PASSWORD1,
+	MSG_SYS_PASSWORD2,
+	MSG_SYS_PASSWORD3,
+	MSG_SYS_PASSWORD4,
+	MSG_SYS_ENTER,
+#endif
+#if defined(_CHANGE_DISP_MODE_)
+	MSG_SYS_CHANGE1,
+#endif
+
+#if defined(_RDS_KEY_FUNTION_)
+	MSG_RDS_AF_REG,
+	MSG_RDS_TA_EON,
+#endif
+
+	MSG_RDS_AF,
+	MSG_RDS_TA,
+	MSG_RDS_EON,
+	MSG_RDS_REG,
+
+#define MAIN_DISPLAY_BEGIN 		MSG_SYS_POWER
+#define MAIN_DISPLAY_END 		MSG_RDS_REG
+
+	///-------music app---------------
+	MSG_MUSIC_NEXT_FILE = 0x20,
+    MSG_MUSIC_PREV_FILE,
+    MSG_MUSIC_PP,
+    MSG_MUSIC_PLAY,
+    MSG_MUSIC_PAUSE,
+    MSG_MUSIC_STOP,
+    MSG_MUSIC_FF,
+    MSG_MUSIC_FR,
+    MSG_MUSIC_FFR_DONE,
+    MSG_MUSIC_RPT,
+//#if defined(TD_ADD_NEW_APP)
+    MSG_MUSIC_RPT1,
+//#endif
+    MSG_MUSIC_EQ,
+    MSG_MUSIC_U_SD,
+    MSG_MUSIC_DEL_FILE,
+    MSG_MUSIC_SPC_FILE,
+    MSG_MUSIC_AB_RPT,
+    MSG_MUSIC_PLAY_SN,
+	MSG_MUSIC_SET_SPEED,
+	MSG_MUSIC_SET_PITCH,
+	
+#define MUSIC1_DISPLAY_BEGIN 	MSG_MUSIC_NEXT_FILE
+#define MUSIC1_DISPLAY_END 		MSG_MUSIC_SET_PITCH
+
+	MSG_MUSIC_NEXT_FOLDER = 0x1100,
+    MSG_MUSIC_PREV_FOLDER,
+    MSG_MUSIC_ADD_10,
+    MSG_MUSIC_SUB_10,
+    MSG_MUSIC_ID3,
+    MSG_MUSIC_SEARCH,
+    MSG_MUSIC_RDM,
+    MSG_MUSIC_INT,
+    MSG_MUSIC_PLAY_MODE,
+    MSG_MUSIC_0,
+	MSG_MUSIC_1,
+	MSG_MUSIC_2,
+	MSG_MUSIC_3,
+	MSG_MUSIC_4,
+	MSG_MUSIC_5,
+	MSG_MUSIC_6,
+	MSG_MUSIC_7,
+	MSG_MUSIC_8,
+	MSG_MUSIC_9,
+	MSG_MUSIC_ADD,
+	MSG_MUSIC_SUB,
+	MSG_MUSIC_DELETE,
+#if defined(_SUPPORT_DISC_)
+	MSG_MUSIC_UP,
+	MSG_MUSIC_DOWN,
+	MSG_MUSIC_LEFT,
+	MSG_MUSIC_RIGHT,
+	MSG_MUSIC_SEL,
+	MSG_MUSIC_CHANNEL,
+	MSG_MUSIC_OSD,
+	MSG_MUSIC_PBC,
+	MSG_MUSIC_GOTO,
+	MSG_MUSIC_ZOOM,
+	MSG_MUSIC_FORMAT,//制式切换
+	MSG_MUSIC_SETUP,
+	MSG_MUSIC_SLOW,
+	MSG_MUSIC_PROGRAM,
+	MSG_MUSIC_ANGLE,
+	MSG_MUSIC_TITLE,
+	MSG_MUSIC_SUB_T,
+#if defined(_SUPPORT_PLAY_MP3JPGMP4)
+	MSG_MUSIC_MP3_JPG_MP4,
+#endif
+#if defined(_SUPPORT_PLAY_RETURN)
+	MSG_MUSIC_RETURN,
+#endif
+#endif
+	MSG_MUSIC_ENTER,
+
+#define MUSIC2_DISPLAY_BEGIN 	MSG_MUSIC_NEXT_FOLDER
+#define MUSIC2_DISPLAY_END 		MSG_MUSIC_ENTER
+
+	MSG_MUSIC_TIMER,
+	MSG_MUSIC_TRK,
+	MSG_MUSIC_DISP,
+#if defined(_SUPPORT_DISC_)
+	MSG_MUSIC_EJECT,
+#if defined(_SUPPORT_VIDEO_)
+	MSG_VIDEO_VOLUME,
+	MSG_VIDEO_BASS,
+	MSG_VIDEO_TREBLE,
+	MSG_VIDEO_BAL,
+	MSG_VIDEO_FAD,
+	MSG_VIDEO_LOUD,
+	MSG_VIDEO_EQ,
+	MSG_VIDEO_MUTE,
+#endif
+#endif
+
+    ///-------FM app---------------
+    MSG_FM_SCAN_ALL_INIT = 0x40,
+    MSG_FM_INIT,
+	MSG_FM_SCAN_ALL,
+	MSG_FM_PREV_STATION,
+	MSG_FM_NEXT_STATION,
+	MSG_FM_SCAN_ALL_DOWN,
+	MSG_FM_SCAN_ALL_UP,
+	MSG_FM_PREV_STEP,
+	MSG_FM_NEXT_STEP,
+	MSG_FM_SELECT_CHANNEL,
+    MSG_FM_PP,
+    MSG_FM_DEL_CHANNEL,
+    MSG_FM_SAVE_CHANNEL,
+    MSG_FM_SELECT_FREQ,
+	MSG_SRC,
+
+#define FM1_DISPLAY_BEGIN 		MSG_FM_SCAN_ALL
+#define FM1_DISPLAY_END 		MSG_FM_SELECT_FREQ
+
+	MSG_FM_PREV_SEEK = 0x1200,
+	MSG_FM_NEXT_SEEK,
+	MSG_FM_AUTO_SAVE,
+	MSG_FM_BROWSE,
+	MSG_FM_SCAN,
+	MSG_FM_BAND,
+	MSG_FM_LOC,
+	MSG_FM_ST,
+#if defined(_ENABLE_SAVE_FREQ_)
+	MSG_FM_SLECT_UP,
+	MSG_FM_SLECT_DOWN,
+#endif
+#if defined(_MR889_SPECAIL_KEY_)
+	MSG_FM_SLECT_UP1,
+	MSG_FM_SLECT_DOWN1,
+#endif
+#if defined(_EVB_SEEK_FUNTION_)
+    MSG_FM_PREV_STEP1,
+    MSG_FM_NEXT_STEP1,
+#endif
+#if defined(_XZC1668_RADIO_FUNTION_)
+	MSG_FM_FM_BAND,
+	MSG_FM_AM_BAND,
+#endif
+#if defined(_SPECIAL_NUMBER_SAVE_)
+	MSG_FM_M7,
+	MSG_FM_M8,
+	MSG_FM_M9,
+	MSG_FM_M10,
+	MSG_FM_S7,
+	MSG_FM_S8,
+	MSG_FM_S9,
+	MSG_FM_S10,
+#endif
+#if defined(_ENABLE_RADIO_RDS_)
+	/*收音RDS PTY 搜索*/
+	MSG_RDS_PTY,
+	MSG_RDS_NEXT,
+	MSG_RDS_BACK,
+	MSG_RDS_M1,
+	MSG_RDS_M2,
+	MSG_RDS_M3,
+	MSG_RDS_M4,
+	MSG_RDS_M5,
+	MSG_RDS_M6,
+#if defined(_ENABLE_NEW_APP_RDS_)
+	MSG_RDS_PTY_TYPE,
+#endif
+#endif
+	MSG_FM_M1,
+	MSG_FM_M2,
+	MSG_FM_M3,
+	MSG_FM_M4,
+	MSG_FM_M5,
+	MSG_FM_M6,
+	MSG_FM_S1,
+	MSG_FM_S2,
+	MSG_FM_S3,
+	MSG_FM_S4,
+	MSG_FM_S5,
+	MSG_FM_S6,
+
+#define FM2_DISPLAY_BEGIN 		MSG_FM_PREV_SEEK
+#define FM2_DISPLAY_END 		MSG_FM_S6
+
+	MSG_FM_TIMER,
+	MSG_FM_RDS_PSN,
+	MSG_FM_RDS_PTY,
+	MSG_FM_ERR,
+#if defined(_SUPPORT_C912DAB_)
+	MSG_FM_DAB_ENTER,
+#endif
+    ///-------BT app---------------
+    MSG_BT_NEXT_FILE = 0x50,
+    MSG_BT_PREV_FILE,
+    MSG_BT_PP,
+    MSG_BT_CALL_LAST_NO,
+    MSG_BT_CALL_NUMBER,
+    MSG_BT_CALL_REJECT,
+    MSG_BT_ANSWER_CALL,
+    MSG_BT_SHUTTER,
+    MSG_BT_RESET,
+    MSG_BT_STACK_STATUS_CHANGE,
+	MSG_TEST_HFP,
+    MSG_DISCONNECT_ALL_LINK,
+    MSG_BT_CONNECT_CTL,
+    MSG_BT_CONNECT_STEREO_CTL,
+    MSG_BT_HID_CTRL,
+    MSG_BT_HID_TAKE_PIC,
+    MSG_BT_MUSIC_EQ,
+    MSG_BT_STEREO_EQ,
+    MSG_BT_SYNC_STEREO_EQ,
+    MSG_BT_PAGE_SCAN,
+	MSG_BT_SPP_UPDATA,
+    MSG_BT_STEREO_SEARCH_DEVICE,
+	MSG_BT_FAST_TEST,
+	MSG_BT_TWS_DELETE_ADDR,
+	MSG_OSC_INTER_CAP_WRITE,
+	MSG_BT_PBAP,
+	
+#define BT1_DISPLAY_BEGIN 		MSG_BT_NEXT_FILE
+#define BT1_DISPLAY_END 		MSG_BT_PBAP
+
+	MSG_BT_0 = 0x1300,
+	MSG_BT_1,
+	MSG_BT_2,
+	MSG_BT_3,
+	MSG_BT_4,
+	MSG_BT_5,
+	MSG_BT_6,
+	MSG_BT_7,
+	MSG_BT_8,
+	MSG_BT_9,
+	MSG_BT_ADD,
+	MSG_BT_STAR,
+	MSG_BT_WELL,
+	MSG_BT_DEL,
+	
+#if defined(_SUPPORT_CALL_RECORDS_)
+	MSG_BT_INFO,
+	MSG_BT_INFO_ADD,
+	MSG_BT_INFO_SUB,
+#endif
+
+#if defined(_TALKING_VOL_CHANGE_)
+	MSG_BT_VOL_CHANGE,
+#endif
+
+#if defined(_SUPPORT_CALL_RECORDS_)
+	MSG_BT_CALL_ONE_NUMBER,
+#endif
+
+#if defined(_SPECIAL_BT_FUNTION_)
+	MSG_BT_ANSWER1,
+    MSG_BT_REJECT1,
+#endif
+
+#if defined(_SPECIAL_ANSWER_KEY_)
+	MSG_BT_ANSWER,
+#endif
+#if defined(_ENABLE_KEY_REDIAL_)
+	MSG_BT_ANSWER_REDIAL,
+#endif
+#if defined(_SPECIAL_ANSWER_REJECT_)
+	MSG_BT_ANSWER_CALL1,
+	MSG_BT_CALL_REJECT1,
+#endif
+
+#if defined(_SY5258_SPECIAL_ANSWER_REJECT_)
+    MSG_BT_ANSWER_CALL3,
+	MSG_BT_CALL_REJECT3,
+#endif
+
+#if defined(_EVB_ANSWER_REJECT_)||defined(_CD8800_EVB_ANSWER_REJECT_)
+	MSG_BT_ANSWER_CALL2,
+	MSG_BT_CALL_REJECT2,
+#endif
+
+#if defined(_YJ3993_ADKEY_CONTROL_)
+	MSG_BT_ANSWER_REJECT,
+#endif
+
+#if defined(_SUPPORT_IPHONE_SIR_)
+	MSG_BT_SIR,
+#endif
+	MSG_BT_REDIAL,
+	MSG_BT_AUDIO_PHONE,
+	MSG_BT_AUDIO_HOST,
+	MSG_BT_AUDIO_CHANGE,
+	MSG_BT_DISCONNECT,
+	MSG_BT_DTMF,
+
+#define BT2_DISPLAY_BEGIN 		MSG_BT_0
+#define BT2_DISPLAY_END 		MSG_BT_DTMF
+
+	MSG_BT_STATE,//获取蓝牙的状态
+	MSG_BT_INCOM_NUM,
+	MSG_BT_ENGINE,
+	MSG_BT_TIMER,
+//#ifdef    TD_ADD_SPP
+    SYS_EVENT_SPP_ACK,
+    SYS_EVENT_EQ_RESET,
+    SYS_EVENT_CHANGE_MODE,
+//#endif
+    MSG_SWITCH_BAUD,
+    MSG_UART_ERR,
+    
+//#if defined(_ENABLE_A2DP_TIME_)
+	MSG_BT_ID3,
+//#endif
+
+    ///-------AUX app---------------
+    MSG_AUX_INIT = 0x70,
+    MSG_AUX_MUTE,
+#if defined(_SUPPORT_AUX1_)
+	MSG_AUX1_INIT,
+	MSG_AUX1_MUTE,
+#endif
+	MSG_ECHO_SET_PARM,
+	MSG_PITCH_SET_PARM,
+
+	///htk
+    MSG_HTK_LOOP_CMD,
+     ///-------ENCODE app---------------
+    MSG_REC_TIMER,
+    MSG_REC_INIT,
+    MSG_REC_START,
+    MSG_REC_STOP,
+    MSG_REC_PP,
+    MSG_REC_PLAY,
+    MSG_ENCODE_ERR,
+
+    MSG_ECHO_START,
+	MSG_ECHO_STOP,
+	MSG_AUX_TIMER,
+#if defined(_SUPPORT_AUX1_)		
+	MSG_AUX1_TIMER,
+#endif	
+#if defined(_SUPPORT_TAPE_)
+	MSG_TAPE_INIT,
+	MSG_TAPE_TIMER,
+#endif
+#if defined(_SUPPORT_MIC_OK_)
+	MSG_MIC_INIT,
+	MSG_MIC_TIMER,
+#endif
+#if defined(_SUPPORT_CAN_MODEL_)
+	MSG_CAN_INIT,
+	MSG_CAN_TIMER,
+#endif
+#if defined(_SUPPORT_REVERSE_MODEL_)
+	MSG_REVE_INIT,
+	MSG_REVE_TIMER,
+#endif
+
+    ///-------IDLE app--------------
+    MSG_IDLE_DETECT,
+	MSG_IDLE_ENTER,
+	MSG_IDLE_EXIT,
+	MSG_IDLE_TIMER,
+
+	MSG_HALF_SECOND,
+
+    MSG_APP_MSGLIST,
+    MSG_PC_VOL_UP,
+    MSG_PC_VOL_DOWN,
+    MSG_PC_PLAY_PREV,
+    MSG_PC_PP,
+    MSG_PC_PLAY_NEXT,
+//#ifdef SUPPORT_CALL_NAMES
+	MSG_IDLE_PLAY,
+//#endif
+	//解码器消息
+	SYS_EVENT_BEGIN_DEC = 0xB0,
+    SYS_EVENT_DEC_FR_END,
+    SYS_EVENT_DEC_FF_END,
+    SYS_EVENT_DEC_END,
+    SYS_EVENT_DEC_DEVICE_ERR,
+
+    SYS_EVENT_DEC_SET_END,
+
+    SYS_EVENT_PLAY_SEL_END,
+    MSG_uart_reveice,
+    MSG_spp_ble,
+//#ifdef    TD_ADD_NEW_APP
+	SYS_VOL_CHANGE,
+	SYS_EVENT_GET_FILE_LIST,
+	SYS_BLE_LINK_OK,
+	SYS_BLE_DIS_LINK,
+//#endif
+	MSG_NULL = 0xff,
+	
+	///-------ext memory msg---------------
+#if defined(_SUPPORT_EXT_MEMORY_)
+	MSG_EXT_MEMORY_INIT = 0x1800,
+	MSG_EXT_MEMORY_TIMER,
+	MSG_EXT_MEMORY_SETUP,
+	MSG_EXT_MEMORY_RADIO,
+	MSG_EXT_MEMORY_RESET,
+#endif
+};
+
+
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+
+enum{
+	DISP_EVENT_REFUR = 0x2000,///自动刷新界面
+	DISP_EVENT_RESET,
+	DISP_EVENT_CALLBACK,
+	DISP_EVENT_VOLUME,
+	DISP_EVENT_MUTE,
+	DISP_EVENT_INSIDE_MUTE,
+	DISP_EVENT_EQ,
+	DISP_EVENT_LOUD,
+	DISP_EVENT_ADD,
+	DISP_EVENT_SUB,
+	DISP_EVENT_SEL,
+	DISP_EVENT_FUNC,
+	DISP_EVENT_CLOCK,
+	DISP_EVENT_CLOCK_ADJ,
+	DISP_EVENT_CLOCK_MUTE,
+#if defined(_SUPPORT_TWO_PT2313_)
+    DISP_EVENT_ADD1,
+    DISP_EVENT_SUB1,
+#endif
+#if defined(_ENABLE_SET_FUNTION_)
+	DISP_EVENT_SEL1,
+	DISP_EVENT_FUNC1,
+#endif
+#if defined(USE_FY_ADD_3KEY)
+	DISP_EVENT_CLOCK_AF,
+#endif
+#if defined(_ENABLE_AUX_VER_VIEW_)
+	DISP_EVENT_VER_VIEW,
+#endif
+
+#if defined(_ENABLE_FAD_FUNTION_)
+	DISP_EVENT_FAD_SINGLE_F,
+	DISP_EVENT_FAD_SINGLE_R,
+	DISP_EVENT_FAD_ALL,
+#endif
+
+#if defined(_ENABLE_SUB_DETECT_)
+	DISP_EVENT_SYS_SUB,
+#endif
+
+#if defined(_ENABLE_DISP_BT_NAME_)
+	DISP_EVENT_BT_NAME,
+#endif
+
+#if defined(_POWER_SET_COLOR_)||defined(_ENABLE_SET_COLOR_)
+	DISP_EVENT_LIGHT,
+#endif
+#if defined(_SL6812_TEST_LCD_)
+	DISP_EVENT_SYS_LCD,
+#endif
+#if defined(_SL6812_KEY_FUNTION_)
+	DISP_EVENT_SYS_SPM,
+#endif
+#if defined(_BT_DISCONNECT_DISPLAY_)
+    DISP_EVENT_SYS_DISP,
+#endif
+#if defined(_ENABLE_ID3_SET_)
+    DISP_EVENT_ID3,
+#endif
+#if defined(SUPPORT_LED_ADJUST)
+	DISP_EVENT_LED,
+#endif
+
+#if defined(_ENABLE_MENU_SET_)||defined(_DISABLE_SEL_VOLUME_)
+    DISP_EVENT_ADD_VOL,
+    DISP_EVENT_SUB_VOL,
+#endif
+
+#if defined(_SUPPORT_POWER_ON_PASSWORD_)||defined(_SUPPORT_PASSWORD_DISPLAY_)
+	DISP_EVENT_PASSWORD_NO_1,
+	DISP_EVENT_PASSWORD_NO_2,
+	DISP_EVENT_PASSWORD_NO_3,
+	DISP_EVENT_PASSWORD_NO_4,
+	DISP_EVENT_PASSWORD_NO_5,
+	DISP_EVENT_PASSWORD_NO_6,
+	DISP_EVENT_PASSWORD_ENTER,
+	DISP_EVENT_PASSWORD,
+#endif
+
+#if defined(_ADJUST_A_B_SPK_)
+	DISP_EVENT_ADJ_A_SPK,
+	DISP_EVENT_ADJ_B_SPK,
+#endif
+#if defined(_MR889_SPECAIL_KEY_)
+	DISP_EVENT_ADJ_CONTROL_SPK,
+#endif
+#if defined(_SPECIAL_TL2000_SET_)
+	DISP_EVENT_A_ADD_VOLUME,
+	DISP_EVENT_A_SUB_VOLUME,
+	DISP_EVENT_B_ADD_VOLUME,
+	DISP_EVENT_B_SUB_VOLUME,
+#endif
+#if defined(SUPPORT_ALARM_FUNC_)
+	DISP_EVENT_ALARM,
+	DISP_EVENT_CLOCK1,
+	DISP_EVENT_CLOCK_ADJ1,
+#endif
+#if defined(_ENABLE_PASSWORD_INPUT_)
+	DISP_EVENT_PASSWORD,
+	DISP_EVENT_PASSWORD1,
+	DISP_EVENT_PASSWORD2,
+	DISP_EVENT_PASSWORD3,
+	DISP_EVENT_PASSWORD4,
+	DISP_EVENT_ENTER,
+#endif
+#if defined(_ENABLE_TEMP_PWM_)
+	DISP_EVENT_TEMP,
+	DISP_EVENT_WARM,
+#endif
+	DISP_EVENT_AF,
+	DISP_EVENT_TA,
+	DISP_EVENT_PTY,
+	DISP_EVENT_EON,
+	DISP_EVENT_REG,
+	DISP_EVENT_RDS_ICON,
+	DISP_EVENT_RDS_TXT,
+	DISP_EVENT_RDS_DATA,
+#if defined(_SUPPORT_DISC_)
+	DISP_EVENT_ICON_DISC,
+	DISP_EVENT_EJECT,
+#if defined(NEED_NO_DISC_DISP)
+	DISP_EVENT_NO_DISC,
+#endif
+#endif
+	DISP_EVENT_ICON_USB,
+	DISP_EVENT_ICON_SD,
+	DISP_EVENT_ICON_BT,
+#if defined(HANGUP_DISP_HANGUP)
+	DISP_EVENT_BT_END,
+#endif
+
+	//-------disp idle msg--------------
+	DISP_EVENT_IDLE = 0x2100,
+	DISP_EVENT_IDLE_PLAY,
+
+	//-------disp radio msg--------------
+	DISP_EVENT_RADIO = 0x2200,
+	DISP_EVENT_FREQ,
+	DISP_EVENT_ST,
+	DISP_EVENT_LOC,
+	DISP_EVENT_MANUAL,
+	DISP_EVENT_AUTO,
+    DISP_EVENT_CHECKSUM,
+	DISP_EVENT_BANDCH,
+#if defined(_ENABLE_VERSION_VIEW_)
+	DISP_EVENT_VERSION,
+#endif
+#if defined(_ENABLE_AUX_VERSION_)||defined(_ENABLE_MODE_VERSION_)
+	DISP_EVENT_AUX_VERSION,
+#endif
+
+	//-------disp play msg--------------
+	DISP_EVENT_USB = 0x2300,
+	DISP_EVENT_SD,
+#if defined(_SUPPORT_DISC_)
+	DISP_EVENT_PLAYER_DISC,
+	DISP_EVENT_PLAYER_USB,
+	DISP_EVENT_PLAYER_CARD,
+#endif
+	DISP_EVENT_PLAY,
+	DISP_EVENT_PLAY_CMD,
+
+	//-------disp bt msg--------------
+	DISP_EVENT_BT = 0x2400,
+	DISP_EVENT_BT_PLAY,
+
+	//-------disp aux msg--------------
+	DISP_EVENT_AUX = 0x2500,
+#if defined(_SUPPORT_AUX1_)
+	DISP_EVENT_AUX1,
+#endif
+	DISP_EVENT_REC = 0x2600,
+#if defined(DAB_MODLE)
+	DISP_EVENT_DAB =0x2700,
+#endif
+#if defined(_SUPPORT_TAPE_)
+	DISP_EVENT_TAPE =0x2800,
+#endif
+#if defined(_SUPPORT_MIC_OK_)
+	DISP_EVENT_MIC =0x2801,
+#endif
+#if defined(_SUPPORT_CAN_MODEL_)
+	DISP_EVENT_CAN =0x2802,
+#endif
+#if defined(_SUPPORT_REVERSE_MODEL_)
+    DISP_EVENT_REVE =0x2803,
+#endif
+	DISP_APP_ONOFF =0x2900,			
+};
+
+
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------------------------------*/
+
+
+enum{
+//	SYS_MSG_0 = 0x40,
+
+	SYS_EVENT_DEV_ONLINE = 0xc0,//192
+	SYS_EVENT_DEV_OFFLINE,
+    SYS_EVENT_LGDEV_ONLINE,
+    SYS_EVENT_LGDEV_OFFLINE,//195
+    SYS_EVENT_SYSCLK_NOTFIT_DEVMOUNT,   ///<当前系统时钟不满足设备枚举需求，收到此消息，切换进music
+	SYS_EVENT_AUX_IN,           ///<AUX插入
+	SYS_EVENT_AUX_OUT,          ///<AUX拔出
+	SYS_EVENT_PC_IN,            ///<PC 插入
+	SYS_EVENT_PC_OUT,           ///200<PC 拔出
+	SYS_EVENT_DECODE_END,
+	SYS_EVENT_STORE_BP,
+	SYS_EVENT_RESTORE_BP,
+	SYS_EVENT_DEL_TASK,
+	SYS_EVENT_TONE_END,//205
+	SYS_EVENT_RES_MANAGE_RUN,
+	SYS_EVENT_TASK_EXIT_REQ,
+	SYS_EVENT_TASK_RUN_REQ,
+    SYS_EVENT_BT_BACKCON,       ///<蓝牙在后台才连接成功，由用户选择处理
+	SYS_EVENT_BT_BACKDISCON,    ///210<蓝牙在后台断开成功，由用户选择处理
+	SYS_EVENT_DEV_BEGIN_MOUNT,
+	SYS_EVENT_DEV_MOUNT_ERR,
+ 	SYS_EVENT_SYS_TIMER_DELAY,//213
+#if defined(_CHANGE_ACC_POWER_ON_FLOWT)
+	SYS_EVENT_SYS_TIMER,
+#endif	
+///-----------------------------------------------------------------------------
+	SYS_EVENT_POWER = 0x4000,//16384
+	SYS_EVENT_ACC_ON,
+	SYS_EVENT_ACC_OFF,
+#if defined(_SUPPORT_DTH_)
+    SYS_EVENT_DTH_ON,
+    SYS_EVENT_DTH_OFF,
+#endif
+#if defined(_SUPPORT_USB_DET)
+    SYS_EVENT_USB_DET_ON,
+    SYS_EVENT_USB_DET_OFF,
+#endif
+#if defined(ENABLE_ILL_LIGHT_FUNC)||defined(ENABLE_PLANE_LIGHT_CONTROL_)
+    SYS_EVENT_ILL_LIGHT_ON,
+    SYS_EVENT_ILL_LIGHT_OFF,
+#endif
+#if defined(_SUPPORT_TAPE_)
+	SYS_EVENT_TAPE_OUT,
+	SYS_EVENT_TAPE_IN,
+#endif
+#if defined(_SUPPORT_MIC_OK_)
+    SYS_EVENT_MIC_OUT,
+    SYS_EVENT_MIC_IN,
+#endif
+	SYS_EVENT_TA_ENTER,
+	SYS_EVENT_TA_EXIT,
+#if defined(_SUPPORT_DISC_)
+	SYS_EVENT_PLAYER_DISC_IN,
+	SYS_EVENT_PLAYER_DISC_OUT,
+	SYS_EVENT_PLAYER_USB_IN,
+	SYS_EVENT_PLAYER_USB_OUT,
+	SYS_EVENT_PLAYER_CARD_IN,
+	SYS_EVENT_PLAYER_CARD_OUT,
+	SYS_EVENT_SERVO_SEND,
+	SYS_EVENT_SERVO_RECEIVE,
+	SYS_EVENT_SERVO_NORMAL,
+	SYS_EVENT_SERVO_ESP,
+	SYS_EVENT_SERVO_SOURCE,
+	SYS_EVENT_SERVO_STATUS,
+	SYS_EVENT_SERVO_MODE,
+	SYS_EVENT_SERVO_SEARCH_MODE,
+	SYS_EVENT_SERVO_SEARCH_STATUS,
+	SYS_EVENT_SERVO_MEDIA,
+	SYS_EVENT_SERVO_ERROR,
+	SYS_EVENT_SERVO_VFD,
+#if defined(SRVR_ERROR_TURN_MODE)
+	SYS_EVENT_SERVO_ERROR_MODE,
+#endif
+#endif
+//#ifdef	TD_ADD_NEW_APP
+    SYS_REFESH_LIST_TIME,
+	SYS_MODE_CHANGE_IDLE,
+	SYS_MODE_CHANGE_RADIO,
+	SYS_MODE_CHANGE_AUX,
+	SYS_MODE_CHANGE_BT,
+	SYS_MODE_CHANGE_USB,
+	SYS_MODE_CHANGE_SD,
+	SYS_CLR_LIST,
+//#endif
+};
+
+enum
+{
+    MSG_RSCP_RECIEVE_DATA = 0x3001,    //
+    MSG_RSCP_RECIEVE_WAIT,    //
+
+	//pack send
+    MSG_RSCP_CHANGE_WORDMODE_ACTION,
+    MSG_RSCP_REPORT_FRAME,
+    MSG_RSCP_REPORT_CTL_STATE,
+    MSG_RSCP_REPORT_LIGHT_STATE,
+    MSG_RSCP_REPORT_LONGFRAME,
+    MSG_RSCP_REPORT_ID3_INFO,
+    MSG_RSCP_SEND_OPT_DATA,
+    MSG_RSCP_SEND_OPT_DATA_NO_ACK,
+    //MSG_RSCP_REPORT_MODE_INFO,
+
+};
+
+struct event_head {
+	const char *str;
+	int len;
+	char data[0];
+};
+
+#endif
+
