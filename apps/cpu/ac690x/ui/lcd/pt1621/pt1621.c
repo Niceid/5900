@@ -73,6 +73,7 @@ void lcd_polling(void)
 	LCD_Display_Num(LCD6,5);
 	LCD_Display_Num(LCD7,6);
 	LCD_Display_Num(LCD8,7);
+	//Clear_Screen();
 	Rand_Clear_Screen();
 }
 
@@ -94,6 +95,7 @@ void lcd_hard_init(uint8 open_close)
 	memset(&lcd_info, 0, sizeof(lcd_info));
 }
 
+/*写一帧数据*/
 void Write_Data(uchar mode,uint address,uchar data)
 {
 	LCD_CE_LOW();
@@ -107,6 +109,7 @@ void Write_Data(uchar mode,uint address,uchar data)
 	Lcd_Delay(20);
 }
 
+/*写Number个byte*/
 void LCD_Display_Num(uchar Lcd_Num ,uchar Number)
 {
 	uchar i;
@@ -114,6 +117,7 @@ void LCD_Display_Num(uchar Lcd_Num ,uchar Number)
 		Write_Data(Write_Mode,Clear_Add[Lcd_Num][i], Led_Num[Number][i]);
 }
 
+/*窗帘清屏*/
 void Clear_Screen(void)
 {
 	uchar i;
@@ -123,14 +127,53 @@ void Clear_Screen(void)
 			Write_Data(Write_Mode,Clear_Add[i][j],0);
 }
 
+/*随机清屏*/
 void Rand_Clear_Screen(void)
 {
-	uchar rand_x[10] = {5,4,1,2,3,6,8,9,0,7};
-	uchar rand_y[3] = {2,1,3};
 	uchar i;
 	uchar j;
+	uchar temp = 0;
+	uchar Flag = 1;
+	uchar  rand_x[10] = {0};
+	uchar rand_y[3]  = {1,2,0};
+	uchar index = 0;
+	while(Flag)
+	{
+		uchar Rand_Num = Random_number(0,9);
+		for(i = 0; i <= index; i++)
+		{
+			if(Rand_Num != rand_x[i])
+			{
+				temp++;
+				if(temp > index)
+				{
+					rand_x[index] = Rand_Num;
+					index++;
+					temp = 0;
+					if(index == 10)
+						Flag = 0;
+					break;
+				}
+			}
+		}
+	}
+	
 	for(i = 0; i < 10; i++)
-		for(j = 0; j < 3; j++)
-			Write_Data(Write_Mode,Clear_Add[rand_x[i]][rand_y[j]],0);
+        for(j = 0; j < 3; j++)
+			Write_Data(Write_Mode,Clear_Add[*(rand_x + i)][*(rand_y + j)],0);
 }
+
+/*生成start~end随机数*/
+uchar Random_number(uchar start, uchar end)
+{
+	if(end<=start)
+	{
+		return start;
+	}
+
+	//获得一个范围在start到end之间的随机数
+	return JL_TIMER0->CNT % (end-start+1) + start;
+}
+
+
 
