@@ -692,7 +692,7 @@ void key_process(void)
 		#if defined(ANY_KEY_POWER_ON)
 			if(!global.sys_power)
 			{
-				GET_KEY_KEY =KEY_SYSTEM_POWER;
+				GET_KEY_KEY = KEY_SYSTEM_POWER;
 			}
 		#endif
 	    	if(GET_KEY_KEY == KEY_SYSTEM_POWER){;}

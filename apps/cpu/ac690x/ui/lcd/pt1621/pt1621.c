@@ -26,7 +26,8 @@ uchar Led_Num[][3] = {
 {0xa,0xb,0x2},//6
 {0x0,0x8,0xa},//7
 {0xa,0xb,0xa},//8
-{0x8,0xa,0xa},//9
+{0x8,0xb,0xa},//9
+{0,0,0}
 };
 
 /*LCD 0~9地址*/
@@ -65,6 +66,7 @@ static void lcd_hard_port_init(uint8 enable)
 /*任务实现接口*/
 void lcd_polling(void)
 {
+	/*
 	LCD_Display_Num(LCD1,2);
 	LCD_Display_Num(LCD2,3);
 	LCD_Display_Num(LCD3,2);
@@ -75,6 +77,8 @@ void lcd_polling(void)
 	LCD_Display_Num(LCD8,7);
 	//Clear_Screen();
 	Rand_Clear_Screen();
+	*/
+	LCD_FM_Display();
 }
 
 void lcd_hard_init(uint8 open_close)
@@ -82,7 +86,7 @@ void lcd_hard_init(uint8 open_close)
 	lcd_hard_port_init(true);//初始化硬件接口
 	/*  驱动    */
 	LCD_CE_LOW();
-	Lcd_Delay(10);
+	Lcd_Delay(2);
 	Write_Bytes_Data_2(Order_Mode,3);
 	Write_Bytes_Data(SYS_EN,8);
 	Write_Bytes_Data_2(0,1);
@@ -99,14 +103,14 @@ void lcd_hard_init(uint8 open_close)
 void Write_Data(uchar mode,uint address,uchar data)
 {
 	LCD_CE_LOW();
-	Lcd_Delay(10);
+	Lcd_Delay(2);
 	Write_Bytes_Data_2(mode,3);
 	Write_Bytes_Data(address,6);
 	Write_Bytes_Data_2(data,4);
 	LCD_CLK_HIGH();
 	LCD_DATA_HIGH();
 	LCD_CE_HIGH();
-	Lcd_Delay(20);
+	Lcd_Delay(2);
 }
 
 /*写Number个byte*/
@@ -117,6 +121,53 @@ void LCD_Display_Num(uchar Lcd_Num ,uchar Number)
 		Write_Data(Write_Mode,Clear_Add[Lcd_Num][i], Led_Num[Number][i]);
 }
 
+/*LCD显示函数*/
+void LCD_FM_Num_Deal(float number)
+{
+	uchar decimal;
+	uchar piece;
+	uchar ten;
+	uchar hundred;
+	
+	uchar flag = 0;
+	uchar LCD_X = LCD5;
+	uint  Number;
+
+	if(number >= 100)
+	{
+		number *= 10;
+		LCD_X--;
+		flag = 1;
+	}
+	else
+		number *= 100;
+
+	Number  = number;
+	decimal = Number  % 10;
+	piece   = (Number % 100) / 10;
+	ten     = (Number % 1000) / 100;
+	hundred = (Number % 10000) /1000;
+	
+	LCD_Display_Num(LCD_X++,hundred);
+	LCD_Display_Num(LCD_X++,ten);
+	LCD_Display_Num(LCD_X++,piece);
+	if(flag)
+		LCD_Display_Num(LCD_X,decimal);
+}
+
+/*在LCD上显示 FM 87.5 ~ FM 108*/
+void LCD_FM_Display(void)
+{
+	while(num <= 108)
+	{
+		LCD_FM_Num_Deal(num);
+		num += 0.5;
+		//Clear_Screen();
+	}
+	num = 87.5;
+	LCD_Display_Num(LCD4,Null);
+}
+
 /*窗帘清屏*/
 void Clear_Screen(void)
 {
@@ -125,6 +176,7 @@ void Clear_Screen(void)
 	for(i = 0; i<10; i++)
 		for(j = 0; j < 3; j++)
 			Write_Data(Write_Mode,Clear_Add[i][j],0);
+	Write_Data(Write_Mode,4*22,0);
 }
 
 /*随机清屏*/
@@ -157,7 +209,7 @@ void Rand_Clear_Screen(void)
 			}
 		}
 	}
-	
+
 	for(i = 0; i < 10; i++)
         for(j = 0; j < 3; j++)
 			Write_Data(Write_Mode,Clear_Add[*(rand_x + i)][*(rand_y + j)],0);
