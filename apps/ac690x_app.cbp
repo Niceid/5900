@@ -339,6 +339,12 @@
 		<Unit filename="common/vm/vm_api.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="cpu/ac690x/My_Audio/My_audio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cpu/ac690x/My_IIC/My_IIC.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="cpu/ac690x/a74hc595/a74hc595.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -512,6 +518,8 @@
 		<Unit filename="include/common/rtc/rtc.h" />
 		<Unit filename="include/common/setup/setup.h" />
 		<Unit filename="include/common/sleep/sleep.h" />
+		<Unit filename="include/cpu/ac690x/My_IIC/My_IIC.h" />
+		<Unit filename="include/cpu/ac690x/My_audio/My_audio.h" />
 		<Unit filename="include/cpu/ac690x/apt8l16/apt8l16.h" />
 		<Unit filename="include/cpu/ac690x/audio_drv/audio_drv.h" />
 		<Unit filename="include/cpu/ac690x/clock.h" />

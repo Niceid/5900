@@ -78,7 +78,8 @@ void lcd_polling(void)
 	//Clear_Screen();
 	Rand_Clear_Screen();
 	*/
-	LCD_FM_Display();
+	//LCD_FM_Num_Deal(Valid_Fv_Tab[0] / 100);
+	LCD_FM_Display(108.0);
 }
 
 void lcd_hard_init(uint8 open_close)
@@ -156,9 +157,9 @@ void LCD_FM_Num_Deal(float number)
 }
 
 /*在LCD上显示 FM 87.5 ~ FM 108*/
-void LCD_FM_Display(void)
+void LCD_FM_Display(float max)
 {
-	while(num <= 108)
+	while(num <= max)
 	{
 		LCD_FM_Num_Deal(num);
 		num += 0.5;
@@ -226,6 +227,4 @@ uchar Random_number(uchar start, uchar end)
 	//获得一个范围在start到end之间的随机数
 	return JL_TIMER0->CNT % (end-start+1) + start;
 }
-
-
 

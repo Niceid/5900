@@ -4,6 +4,8 @@
 
 typedef unsigned char uchar;
 typedef unsigned int  uint;
+typedef unsigned short  u16;
+
 
 #define Order_Mode 0x8 //命令模式
 #define Write_Mode 0xa //写模式
@@ -77,7 +79,7 @@ void Clear_Screen(void);
 void Rand_Clear_Screen(void);
 uchar Random_number(uchar ,uchar );
 void LCD_FM_Num_Deal(float );
-void LCD_FM_Display(void);
+void LCD_FM_Display(float );
 
 #endif
 
