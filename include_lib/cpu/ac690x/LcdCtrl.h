@@ -32,8 +32,7 @@ static float num = 87.5;
 void Lcd_Delay(int time)
 {
 	uchar i;
-	for(i = 0; i < time; i++)
-        key_printf("sdds");
+	for(i = 0; i < time; i++);
 }
  //写入一定位数的数据
 void Write_Bytes_Data(uint Data,uint Number)

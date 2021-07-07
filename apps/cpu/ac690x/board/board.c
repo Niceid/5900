@@ -16,7 +16,7 @@
 #include "update.h"
 #include "mcpwm_api.h"
 #include "setup.h"
-
+#include "My_audio/My_audio.h"
 
 #define BOARD_DEBUG
 #ifdef BOARD_DEBUG
@@ -682,6 +682,7 @@ void  board_main(u32 cfg_addr, u32 addr, u32 res,u32 update_flag)
 #endif
 
     sys_init();
+    FM_Init();
 
 	puts("-------sys_init_succeed-------\n");
 	

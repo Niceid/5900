@@ -3,11 +3,13 @@
 #include "setup.h"
 #include "lcd/pt1621/pt1621.h"
 #include "disp.h"
+#include "My_audio/My_audio.h"
 
 #include "key_drv.h"
 #if defined(_SUPPORT_LCM_1618_DRIVE)
 #include "Lcm_1618_drive.h"
 #include "lcd/pt1621/pt1621.h"
+
 #endif
 
 lcd_info_t lcd_info;
@@ -79,7 +81,11 @@ void lcd_polling(void)
 	Rand_Clear_Screen();
 	*/
 	//LCD_FM_Num_Deal(Valid_Fv_Tab[0] / 100);
-	LCD_FM_Display(108.0);
+	LCD_FM_Num_Deal(Valid_Fv_Tab[0]);
+	//uchar i;
+	//for(i = 0; i < 44; i++)
+		//key_printf("%d",Valid_Fv_Tab[i]);
+	//key_printf("___________");
 }
 
 void lcd_hard_init(uint8 open_close)
@@ -129,7 +135,7 @@ void LCD_FM_Num_Deal(float number)
 	uchar piece;
 	uchar ten;
 	uchar hundred;
-	
+
 	uchar flag = 0;
 	uchar LCD_X = LCD5;
 	uint  Number;
@@ -148,9 +154,10 @@ void LCD_FM_Num_Deal(float number)
 	piece   = (Number % 100) / 10;
 	ten     = (Number % 1000) / 100;
 	hundred = (Number % 10000) /1000;
-	
+
 	LCD_Display_Num(LCD_X++,hundred);
 	LCD_Display_Num(LCD_X++,ten);
+	Write_Data(Write_Mode,4*22,8);
 	LCD_Display_Num(LCD_X++,piece);
 	if(flag)
 		LCD_Display_Num(LCD_X,decimal);
