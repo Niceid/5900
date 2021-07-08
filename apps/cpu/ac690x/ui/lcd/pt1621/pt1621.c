@@ -86,6 +86,7 @@ void lcd_polling(void)
 	//for(i = 0; i < 44; i++)
 		//key_printf("%d",Valid_Fv_Tab[i]);
 	//key_printf("___________");
+	//LCD_FM_Num_Deal(99.9);
 }
 
 void lcd_hard_init(uint8 open_close)

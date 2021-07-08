@@ -15,7 +15,7 @@ uint Basic_Num = 0x02;
 uint Basic_Num_2 = 0x10;
 uint Basic_Num_3 = 0x17;
 
-static float num = 87.5;
+float num = 87.5;
 
 
 /*  命令的定义  */
